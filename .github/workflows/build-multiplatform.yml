@@ -10,14 +10,21 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+
       - name: Install PyInstaller
         run: pip install pyinstaller
+
       - name: Build EXE
         run: pyinstaller --onefile --windowed anti_lock.py
+
+      - name: List dist contents
+        run: dir dist
+
       - name: Upload EXE
         uses: actions/upload-artifact@v3
         with:
@@ -28,20 +35,29 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+
       - name: Install py2app
         run: pip install py2app
+
       - name: Create setup.py
         run: |
           echo "from setuptools import setup; setup(app=['anti_lock.py'], options={'py2app': {'argv_emulation': True}})" > setup.py
-      - name: Build .app/.dmg
+
+      - name: Build .app
         run: python setup.py py2app
-      - name: Upload DMG (zippé)
+
+      - name: Zip the .app
         run: zip -r anti_lock_mac.zip dist/anti_lock.app
-      - name: Upload
+
+      - name: List dist contents
+        run: ls -lh dist
+
+      - name: Upload ZIP
         uses: actions/upload-artifact@v3
         with:
           name: anti_lock_macos
@@ -51,25 +67,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+
       - name: Install PyInstaller and fpm
         run: |
           sudo apt update
           sudo apt install -y ruby ruby-dev build-essential rpm
           sudo gem install --no-document fpm
           pip install pyinstaller
-      - name: Build executable
+
+      - name: Build binary
         run: pyinstaller --onefile anti_lock.py
-      - name: Create .deb and .rpm
+
+      - name: Prepare .deb and .rpm
         run: |
           mkdir -p pkg/usr/local/bin
           cp dist/anti_lock pkg/usr/local/bin/anti_lock
           fpm -s dir -t deb -n anti_lock -v 1.0.0 -C pkg
           fpm -s dir -t rpm -n anti_lock -v 1.0.0 -C pkg
-      - name: Upload .deb/.rpm
+
+      - name: List artifacts
+        run: ls -lh *.deb *.rpm
+
+      - name: Upload .deb and .rpm
         uses: actions/upload-artifact@v3
         with:
           name: anti_lock_linux
@@ -81,11 +105,12 @@ jobs:
     needs: [build-windows, build-macos, build-linux]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
         with:
           path: artifacts
+
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            artifacts/**/*
+          files: artifacts/**/*
