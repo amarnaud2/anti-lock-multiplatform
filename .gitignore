@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+.env/
+.venv/
+venv/
+ENV/
+env/
+dist/
+build/
+*.egg-info/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# PyInstaller / py2app
+*.spec
+*.app
+*.dmg
+*.deb
+*.rpm
+*.zip
+
+# VS Code
+.vscode/
