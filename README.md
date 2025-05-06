@@ -1,6 +1,6 @@
-# 🖱️ Anti-Lock Script – Multi-platform Mouse Jiggler
+# 💻 Anti-Lock Script – Multi-platform Mouse Jiggler
 
-[![Build Multi-Platform](https://github.com/yourusername/anti-lock/actions/workflows/build-multiplatform.yml/badge.svg)](https://github.com/yourusername/anti-lock/actions/workflows/build-multiplatform.yml)
+[![Build Multi-Platform](https://github.com/amarnaud2/anti-lock/actions/workflows/build-multiplatform.yml/badge.svg)](https://github.com/amarnaud2/anti-lock/actions/workflows/build-multiplatform.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -32,7 +32,7 @@ Every 60 seconds, the script moves the mouse by 1 pixel and back, preventing scr
 
 ## 🔧 How to Use
 
-Download the appropriate binary from the [Releases](https://github.com/yourusername/anti-lock/releases) section, then run it:
+Download the appropriate binary from the [Releases](https://github.com/amarnaud2/anti-lock-multiplatform/releases) section, then run it:
 
 - **Windows**: Double-click `anti_lock.exe`
 - **macOS**: Unzip and launch the `.app`. May require `System Preferences > Security > Allow Anyway`.
@@ -88,8 +88,8 @@ This repository includes a GitHub Actions workflow that:
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/yourusername/anti-lock.git
-cd anti-lock
+git clone https://github.com/amarnaud2/anti-lock-multiplatform.git
+cd anti-lock-multiplatform
 ```
 
 ### 2. Create a virtual environment
